@@ -1,42 +1,17 @@
-# vue3-nft-market
-
-## Project setup
+# vue3-nft-market Project
+ `vue3-nft-market` is inspirational Vue3 project from [Nader Dabit](https://github.com/dabit3/)'s [Youtube video](https://www.youtube.com/watch?v=GKJBEEXUha0) 
+## Setup
+Setup project with (vue3 + typescript + router)
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+vue create vue3-nft-market
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Dependencies (as Library)
+1. [TailwindCSS](./docs/tailwind.md)
+2. [Web3](./docs/web3.md)
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Basic Sample Hardhat Project
-
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
-
-
+## Documentation
+* [Tasks](./docs/tasks.md)
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
