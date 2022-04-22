@@ -1,6 +1,14 @@
 <template>
-  <div class="about">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <h1>This is an about page</h1>
-  </div>
+  <BasicComponent title="This is an about page" />
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import BasicComponent from '@/components/BasicComponent.vue';
+
+export default defineComponent({
+  name: 'AboutView',
+  components: { BasicComponent },
+});
+
+</script>

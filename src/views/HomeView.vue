@@ -1,14 +1,15 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <h1>This is home page</h1>
-  </div>
+  <BasicComponent title="This is home page" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import BasicComponent from '@/components/BasicComponent.vue';
 
 export default defineComponent({
   name: 'HomeView',
+  components: {
+    BasicComponent
+  }
 });
 </script>
