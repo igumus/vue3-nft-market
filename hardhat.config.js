@@ -1,4 +1,10 @@
 require("@nomiclabs/hardhat-waffle");
+const dotenv = require('dotenv-flow')
+
+dotenv.config()
+
+console.log('rpc addr', process.env.VUE_APP_NETWORK_RPC_ADDR)
+
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
@@ -9,10 +15,10 @@ module.exports = {
   },
   networks: {
     ganache: {
-      url: "http://127.0.0.1:7545",
+      url: `${process.env.VUE_APP_NETWORK_RPC_ADDR}`,
       chainId: 1337,
       accounts: [
-        `0x9e58e0265e9910670e7754eb66495433cf69420b09fb317de088a530c2eea7c4`,
+        `0x${process.env.GANACHE_LOCAL_ACCOUNT}`,
       ],
     }
   }
