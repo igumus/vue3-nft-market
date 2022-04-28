@@ -20,7 +20,7 @@ async function main() {
   `
 
   let data = JSON.stringify(config)
-  fs.writeFileSync('src/contract.config.js', JSON.parse(data)) 
+  fs.writeFileSync('src/contract.config.ts', JSON.parse(data)) 
 }
 
 main()
