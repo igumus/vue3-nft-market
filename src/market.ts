@@ -7,9 +7,9 @@ import NFTMarket from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 
 // infura ipfs rpc url
-const ipfsRpcUrl = process.env.VUE_APP_INFURA_IPFS_RPC_ADDR
+const ipfsRpcUrl = process.env.VUE_APP_IPFS_RPC_ADDR
 // infura ipfs endpoint url
-const ipfsEndpointUrl = process.env.VUE_APP_INFURA_IPFS_ENDPOINT_ADDR
+const ipfsEndpointUrl = process.env.VUE_APP_IPFS_ENDPOINT_ADDR
 // network rpc endpoint address
 const networkRpcUrl = process.env.VUE_APP_NETWORK_RPC_ADDR
 
