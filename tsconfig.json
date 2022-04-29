@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
+    // "target": "es5",
+    // "module": "esnext",
+    "target": "ESNext",
+    "module": "CommonJS",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -34,9 +36,12 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "./scripts",
+    "./test",
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "files": ["hardhat.config.ts"]
 }

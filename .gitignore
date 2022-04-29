@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 src/contract.config.ts
+src/types
 /dist
 
 # Hardhat files
