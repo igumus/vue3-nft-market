@@ -17,7 +17,7 @@
 npm install ethers hardhat @nomiclabs/hardhat-waffle \
     ethereum-waffle chai @nomiclabs/hardhat-ethers \
     web3modal @openzeppelin/contracts ipfs-http-client \
-    axios
+    axios typechain @typechain/hardhat @typechain/ethers-v5
 ```
 
 ## Configuration
