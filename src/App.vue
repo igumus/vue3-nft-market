@@ -9,7 +9,8 @@
             </div>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
-                <LinkComponent v-model="current" :name="'Explore'" :page="'/'" />
+                <LinkComponent v-model="current" :name="'Home'" :page="'/'" />
+                <LinkComponent v-model="current" :name="'Explore'" :page="'/explore'" />
               </div>
             </div>
           </div>
@@ -29,16 +30,15 @@
 
       <DisclosurePanel class="md:hidden">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex">
-          <LinkComponent v-model="current" :name="'Explore'" :page="'/'" />
+          <LinkComponent v-model="current" :name="'Home'" :page="'/'" />
+          <LinkComponent v-model="current" :name="'Explore'" :page="'/explore'" />
           <LinkComponent v-model="current" :name="'New Asset'" :page="'/createAsset'" />
         </div>
       </DisclosurePanel>
     </Disclosure>
 
-    <main>
-      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <router-view/>
-      </div>
+    <main class="h-screen max-w-7xl sm:px-6 lg:px-8 flex flex-row items-center">
+      <router-view/>
     </main>
   </div>
 </template>

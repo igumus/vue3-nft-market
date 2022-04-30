@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center">
+    <div class="flex justify-center w-full">
         <div className="w-1/2 flex flex-col pb-12">
             <input 
                 v-model="name"
@@ -8,12 +8,6 @@
                 className="mt-8 border rounded p-4"
             />
             <span v-if="nameErr" class="px-2 text-red-400 font-thin">{{nameErr}}</span>
-            
-            <textarea
-                v-model="desc"
-                placeholder="Asset Description"
-                className="mt-2 border rounded p-4"
-            />
             
             <input
                 v-model.number="price"
@@ -28,6 +22,12 @@
                 @change="onFilePicked"
             />
             <span v-if="fileErr" class="px-2 text-red-400 font-thin">{{fileErr}}</span>
+
+            <textarea
+                v-model="desc"
+                placeholder="Asset Description"
+                className="mt-2 border rounded p-4"
+            />
 
             <button @click="createMarket" className="font-bold mt-4 bg-indigo-500 text-white rounded p-4 shadow-lg">
                 Create Digital Asset
