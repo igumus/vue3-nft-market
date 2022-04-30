@@ -29,7 +29,7 @@
             />
             <span v-if="fileErr" class="px-2 text-red-400 font-thin">{{fileErr}}</span>
 
-            <button @click="createMarket" className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg">
+            <button @click="createMarket" className="font-bold mt-4 bg-indigo-500 text-white rounded p-4 shadow-lg">
                 Create Digital Asset
             </button>
       </div>

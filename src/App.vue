@@ -1,41 +1,70 @@
 <template>
-  <div class="text-gray-600 font-body h-screen">
-    <nav class="flex justify-between">
-     <div>
-       <h1>
-         <router-link to="/">NFT Market</router-link> 
-       </h1>
-     </div>
-     <ul class="flex justify-end">
-       <li>
-         <router-link to="/" class="flex">
-          <svg class="w-5 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-          </svg>
-          <span>Home</span>
-         </router-link> 
-       </li>
-       <li>
-         <router-link to="/createAsset" class="mr-4 flex">
-           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-            </svg>
-            <span>Create Asset</span>
-          </router-link>
-        </li>
-       <li>
-         <router-link to="/about" class="mr-4 flex">
-           <svg class="w-5 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-            </svg>
-           <span>About</span>
-          </router-link>
-        </li>
-     </ul>
-    </nav>
-    <router-view/>
+  <div class="min-h-full">
+    <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <img class="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Vue NFT Market" />
+            </div>
+            <div class="hidden md:block">
+              <div class="ml-10 flex items-baseline space-x-4">
+                <LinkComponent v-model="current" :name="'Explore'" :page="'/'" />
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:block">
+            <LinkComponent v-model="current" :name="'New Asset'" :page="'/createAsset'"  />
+          </div>
+          <div class="-mr-2 flex md:hidden">
+            <!-- Mobile menu button -->
+            <DisclosureButton class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+              <span class="sr-only">Open main menu</span>
+              <MenuIcon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
+              <XIcon v-else class="block h-6 w-6" aria-hidden="true" />
+            </DisclosureButton>
+          </div>
+        </div>
+      </div>
+
+      <DisclosurePanel class="md:hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex">
+          <LinkComponent v-model="current" :name="'Explore'" :page="'/'" />
+          <LinkComponent v-model="current" :name="'New Asset'" :page="'/createAsset'" />
+        </div>
+      </DisclosurePanel>
+    </Disclosure>
+
+    <main>
+      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <router-view/>
+      </div>
+    </main>
   </div>
 </template>
 
-<style>
-</style>
+<script lang="ts">
+import { ref } from 'vue'
+import {useRouter} from 'vue-router'
+import LinkComponent from '@/components/LinkComponent.vue'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
+import { MenuIcon, XIcon } from '@heroicons/vue/outline'
+
+export default {
+  components: {
+    LinkComponent,
+    Disclosure,
+    DisclosureButton,
+    DisclosurePanel,
+    MenuIcon,
+    XIcon,
+  },
+  setup() {
+    const router = useRouter()
+    const current = ref('/')
+    return {
+      current,
+    }
+  },
+}
+</script>
