@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
    <div class="px-4 max-w-7xl">
-        <div v-if="items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+        <div v-if="items.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           <NFTCard v-for="(nft, idx) in items" :key="idx" :item="nft"/>
         </div>
         <div v-else>
@@ -20,7 +20,7 @@ export default defineComponent({
   name: 'ExploreView',
   components: { NFTCard },
   setup() {
-    const items = ref<MarketItem[]>()
+    const items = ref<MarketItem[]>([])
 
     onMounted(async () => {
       items.value = await listMarketItems()
