@@ -8,9 +8,11 @@
     - [x] Add `CreatAssetView`
     - [x] Add `HomeView` to show market items
     - [x] Add `NFTCard` component
-    - [ ] Add view to list owned assets
-    - [ ] Add view to list created assets
-    - [ ] Add Loading indicator in views/components
+    - [x] Add view to list owned assets
+    - [x] Add view to list created assets
+    - [x] Add Loading indicator in views/components
+    - [ ] Update card view
+    - [ ] Add reselling already owned asset
 ## Test
     - [ ] convert `test/nftmarket-test.js` to typescript 
     - [ ] enhance test scenarios 
