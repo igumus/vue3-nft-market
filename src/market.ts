@@ -109,7 +109,7 @@ export const buyNFT = async(nft: MarketItem) => {
     const marketContract = NFTMarket__factory.connect(ADDR_NFT_MARKET, signer)
 
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')
-    const transaction = await marketContract.createMarketSale(ADDR_NFT, nft.itemId, {
+    const transaction = await marketContract.buyMarketItem(ADDR_NFT, nft.itemId, {
       value: price
     })
     await transaction.wait()
