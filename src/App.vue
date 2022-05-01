@@ -12,6 +12,7 @@
                 <LinkComponent v-model="current" :name="'Home'" :page="'/'" />
                 <LinkComponent v-model="current" :name="'Explore'" :page="'/explore'" />
                 <LinkComponent v-model="current" :name="'Owned Assets'" :page="'/ownedAssetList'" />
+                <LinkComponent v-model="current" :name="'Created Assets'" :page="'/createdAssetList'" />
               </div>
             </div>
           </div>
@@ -34,6 +35,7 @@
           <LinkComponent v-model="current" :name="'Home'" :page="'/'" />
           <LinkComponent v-model="current" :name="'Explore'" :page="'/explore'" />
           <LinkComponent v-model="current" :name="'Owned Assets'" :page="'/ownedAssetList'" />
+          <LinkComponent v-model="current" :name="'Created Assets'" :page="'/createdAssetList'" />
           <LinkComponent v-model="current" :name="'New Asset'" :page="'/createAsset'" />
         </div>
       </DisclosurePanel>

@@ -18,6 +18,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "ownedAssetList" */ '../views/OwnedAssetListView.vue')
   },
   {
+    path: '/createdAssetList',
+    name: 'createdAssetList',
+    component: () => import(/* webpackChunkName: "createdAssetList" */ '../views/CreatedAssetListView.vue')
+  },
+  {
     path: '/createAsset',
     name: 'createAsset',
     component: () => import(/* webpackChunkName: "createAsset" */ '../views/CreateAssetView.vue')
