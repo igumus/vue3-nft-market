@@ -9,7 +9,7 @@
         </div>
         <div class="p-4 bg-black">
             <p class="text-2xl mb-4 font-bold text-white">{{nft.price}} ETH</p>
-            <button class="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded" @click="buy(nft)">Buy</button>
+            <button class="w-full bg-indigo-500 text-white font-bold py-2 px-12 rounded" @click="buy(nft)">Buy</button>
         </div>
     </div>
 </template>
