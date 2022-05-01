@@ -11,6 +11,7 @@
               <div class="ml-10 flex items-baseline space-x-4">
                 <LinkComponent v-model="current" :name="'Home'" :page="'/'" />
                 <LinkComponent v-model="current" :name="'Explore'" :page="'/explore'" />
+                <LinkComponent v-model="current" :name="'Owned Assets'" :page="'/ownedAssetList'" />
               </div>
             </div>
           </div>
@@ -32,6 +33,7 @@
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex">
           <LinkComponent v-model="current" :name="'Home'" :page="'/'" />
           <LinkComponent v-model="current" :name="'Explore'" :page="'/explore'" />
+          <LinkComponent v-model="current" :name="'Owned Assets'" :page="'/ownedAssetList'" />
           <LinkComponent v-model="current" :name="'New Asset'" :page="'/createAsset'" />
         </div>
       </DisclosurePanel>
@@ -45,7 +47,6 @@
 
 <script lang="ts">
 import { ref } from 'vue'
-import {useRouter} from 'vue-router'
 import LinkComponent from '@/components/LinkComponent.vue'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { MenuIcon, XIcon } from '@heroicons/vue/outline'
@@ -60,7 +61,6 @@ export default {
     XIcon,
   },
   setup() {
-    const router = useRouter()
     const current = ref('/')
     return {
       current,
