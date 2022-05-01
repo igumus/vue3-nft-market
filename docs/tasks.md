@@ -15,8 +15,14 @@
     - [ ] Update card view
     - [ ] Add reselling already owned asset
 ## Test
-    - [ ] convert `test/nftmarket-test.js` to typescript 
-    - [ ] enhance test scenarios 
+    - NFT Tests
+        - [x] Check token creation flow
+        - [x] Check token id generation flow
+    - NFTMarket Tests
+        - [x] Convert/Refactor `test/nftmarket-test.js` to `test/NFTMarket.test.ts`
+        - [x] Check empty market count
+        - [x] Check adding nft to market whether increases market count
+        - [ ] ...
     
 ## Development
     - [ ] convert `scripts/deploy.js` to typescript

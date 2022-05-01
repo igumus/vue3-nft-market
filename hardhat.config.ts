@@ -19,8 +19,10 @@ module.exports = {
   solidity: {
     version: "0.8.4",
   },
-  defaultNetwork: "ganache",
   networks: {
+    hardhat: {
+      chainId: 1337
+    },
     ganache: {
       url: `${process.env.VUE_APP_NETWORK_RPC_ADDR}`,
       chainId: 1337,
