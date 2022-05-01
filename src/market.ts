@@ -159,3 +159,17 @@ export const myItems = async(): Promise<MarketItem[]> => {
     const items = await Promise.all(data.map(mapStructOutputToInterface))
     return items
 }
+
+export const createdAssets = async(): Promise<MarketItem[]> => {
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner()
+ 
+    const marketContract = NFTMarket__factory.connect(ADDR_NFT_MARKET, signer) 
+    const tokenContract = NFT__factory.connect(ADDR_NFT, signer) 
+    const data = await marketContract.fetchItemsCreated()
+    const mapStructOutputToInterface = mapperFunction(tokenContract)
+    const items = await Promise.all(data.map(mapStructOutputToInterface))
+    return items
+}
