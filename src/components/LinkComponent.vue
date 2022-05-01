@@ -21,7 +21,7 @@ export default defineComponent({
             required: true
         },
     },
-    setup(props: any, context:any) {
+    setup(props, context) {
         const linkName = ref(props.name)
         const linkPage = ref(props.page)
 
