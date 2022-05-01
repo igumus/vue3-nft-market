@@ -10,7 +10,8 @@
     - [x] Add `NFTCard` component
     - [x] Add view to list owned assets
     - [x] Add view to list created assets
-    - [x] Add Loading indicator in views/components
+    - [x] Add shorcut actions to list views
+    - [ ] Add Loading indicator in views/components
     - [ ] Update card view
     - [ ] Add reselling already owned asset
 ## Test
