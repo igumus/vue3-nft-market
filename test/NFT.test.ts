@@ -29,7 +29,7 @@ describe("NFT", async function(){
     const marketContract = await createMarketContract(owner)
     const nftContract = await createNFTContract(owner, marketContract.address)
 
-    const currentMarketCount = await NFTMarket__factory.connect(marketContract.address, seller).countMarketItem()
+    const currentMarketCount = await NFTMarket__factory.connect(marketContract.address, seller).availableItemCount()
     expect(currentMarketCount).to.eq(0)
 
     let transaction = await NFT__factory.connect(nftContract.address, seller).createToken("https://www.example.com")

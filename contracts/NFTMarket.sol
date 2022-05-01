@@ -139,9 +139,8 @@ contract NFTMarket is ReentrancyGuard {
     return items;
   }
 
-  /* Returns items count in market */
-  /* @todo should rename to pending item count */
-  function countMarketItem() public view returns(uint) {
+  /* Returns available items count in market */
+  function availableItemCount() public view returns(uint) {
     uint pendingItemCount = _itemIds.current() - _itemsSold.current();
     return pendingItemCount;
   }

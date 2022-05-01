@@ -7,7 +7,7 @@ describe("NFTMarket", async function() {
   it("Should return zero items in empty market", async function() {
     const [owner] = await ethers.getSigners()
     const market = await createMarketContract(owner)
-    const currentMarketCount = await market.countMarketItem()
+    const currentMarketCount = await market.availableItemCount()
     expect(currentMarketCount).to.eq(0)
   }),
   it("Should return one after adding item to market", async function() {
@@ -15,7 +15,7 @@ describe("NFTMarket", async function() {
     const marketContract = await createMarketContract(owner)
     const nftContract = await createNFTContract(owner, marketContract.address)
 
-    let marketCount = await marketContract.countMarketItem()
+    let marketCount = await marketContract.availableItemCount()
     expect(marketCount).to.eq(0)
 
     const listingPrice = await marketContract.getListingPrice()
@@ -26,7 +26,7 @@ describe("NFTMarket", async function() {
 
     await NFTMarket__factory.connect(marketContract.address, seller).createMarketItem(nftContract.address, tokenId, auctionPrice, {value: listingPrice})
 
-    marketCount = await marketContract.countMarketItem()
+    marketCount = await marketContract.availableItemCount()
     expect(marketCount).to.eq(1)
   }),
   it("Should return zero after selling first item in market", async function() {
@@ -34,7 +34,7 @@ describe("NFTMarket", async function() {
     const marketContract = await createMarketContract(owner)
     const nftContract = await createNFTContract(owner, marketContract.address)
 
-    let availableItemCount = await marketContract.countMarketItem()
+    let availableItemCount = await marketContract.availableItemCount()
     let soldItemCount = await marketContract.soldItemCount()
     expect(availableItemCount).to.eq(0)
     expect(soldItemCount).to.eq(0)
@@ -47,13 +47,13 @@ describe("NFTMarket", async function() {
 
     await NFTMarket__factory.connect(marketContract.address, seller).createMarketItem(nftContract.address, tokenId, auctionPrice, {value: listingPrice})
 
-    availableItemCount = await marketContract.countMarketItem()
+    availableItemCount = await marketContract.availableItemCount()
     expect(availableItemCount).to.eq(1)
     expect(soldItemCount).to.eq(0)
 
     await NFTMarket__factory.connect(marketContract.address, buyer).buyMarketItem(nftContract.address, tokenId, {value: auctionPrice} )
 
-    availableItemCount = await marketContract.countMarketItem()
+    availableItemCount = await marketContract.availableItemCount()
     soldItemCount = await marketContract.soldItemCount()
     expect(availableItemCount).to.eq(0)
     expect(soldItemCount).to.eq(1)
