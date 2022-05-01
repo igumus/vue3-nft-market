@@ -15,7 +15,7 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import {MarketItem, buyNFT} from '@/market'
+import {MarketItem, buyNFT, resellNFT} from '@/market'
 
 export default defineComponent({
     name: "NFTCard",
@@ -37,7 +37,7 @@ export default defineComponent({
 
        const buy = async() => {
            if (props.owned) {
-               console.log('reselling')
+               await resellNFT(props.item)
            } else {
                 await buyNFT(props.item)
            }

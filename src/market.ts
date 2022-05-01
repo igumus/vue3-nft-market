@@ -83,7 +83,6 @@ export const pushToMarket = async(url: string, price: number): Promise<boolean> 
     /* then list the item for sale on the marketplace */
     const contract = NFTMarket__factory.connect(ADDR_NFT_MARKET, signer)
     const listingPrice = await contract.getListingPrice()
-
     const transaction = await contract.createMarketItem(ADDR_NFT, tokenId, nftPrice, { value: listingPrice })
     await transaction.wait()
     console.log('token put on market', tokenId)
@@ -112,6 +111,18 @@ export const buyNFT = async(nft: MarketItem) => {
     const transaction = await marketContract.buyMarketItem(ADDR_NFT, nft.itemId, {
       value: price
     })
+    await transaction.wait()
+}
+
+export const resellNFT = async(nft: MarketItem) => {
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner()
+    const marketContract = NFTMarket__factory.connect(ADDR_NFT_MARKET, signer)
+
+    const listingPrice = await marketContract.getListingPrice()
+    const transaction = await marketContract.resellMarketItem(ADDR_NFT, nft.itemId, {value: listingPrice})
     await transaction.wait()
 }
 
