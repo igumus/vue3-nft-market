@@ -17,14 +17,13 @@ import { listMarketItems, MarketItem } from '@/market'
 import NFTCard from '@/components/NFTCard.vue'
 
 export default defineComponent({
-  name: 'HomeView',
+  name: 'ExploreView',
   components: { NFTCard },
   setup() {
     const items = ref<MarketItem[]>()
 
     onMounted(async () => {
       items.value = await listMarketItems()
-      items.value.forEach((e, idx) => console.log(`item-${idx}`, e.desc))
     })
 
     return { items }
