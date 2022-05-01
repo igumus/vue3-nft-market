@@ -1,25 +1,7 @@
-import {ethers} from 'hardhat'
-import {NFT__factory, NFTMarket__factory} from '../src/types/factories/contracts'
-import { expect, should } from 'chai';
-import { NFT, NFTMarket } from '@/types';
-import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
-
-async function createMarketContract(owner: SignerWithAddress): Promise<NFTMarket> {
-    const marketFactory = new NFTMarket__factory(owner)
-    const market = await marketFactory.deploy()
-    await market.deployed()
-    console.log("market deployed at:", market.address)
-    return market
-}
-
-async function createNFTContract(owner: SignerWithAddress, market: string): Promise<NFT> {
-    const nftFactory = new NFT__factory(owner)
-    const nft = await nftFactory.deploy(market)
-    await nft.deployed()
-    console.log('nft deployed at:', nft.address)
-    return nft
-}
-
+import { ethers } from 'hardhat'
+import { NFTMarket__factory } from '../src/types/factories/contracts'
+import { expect } from 'chai';
+import { createMarketContract, createNFTContract, createNFTToken } from './utils'
 
 describe("NFTMarket", async function() {
   it("Should return zero items in empty market", async function() {
@@ -29,41 +11,52 @@ describe("NFTMarket", async function() {
     expect(currentMarketCount).to.eq(0)
   }),
   it("Should return one after adding item to market", async function() {
-    const [owner] = await ethers.getSigners()
-    const market = await createMarketContract(owner)
-    expect(market).to.ok;
-    const nft = await createNFTContract(owner, market.address)
-    expect(nft).to.ok;
+    const [owner, seller] = await ethers.getSigners()
+    const marketContract = await createMarketContract(owner)
+    const nftContract = await createNFTContract(owner, marketContract.address)
 
-    let marketCount = await market.countMarketItem()
+    let marketCount = await marketContract.countMarketItem()
     expect(marketCount).to.eq(0)
 
-    const listingPrice = await market.getListingPrice()
+    const listingPrice = await marketContract.getListingPrice()
     const auctionPrice = ethers.utils.parseUnits('1', 'ether')
-    await nft.createToken("https://www.example.com")
-   
-    await market.createMarketItem(nft.address, 1, auctionPrice, {value: listingPrice})
 
-    marketCount = await market.countMarketItem()
+    const tokenId = await createNFTToken(seller, nftContract.address, "https://www.example.com")
+    expect(tokenId.toNumber()).to.greaterThanOrEqual(0)
+
+    await NFTMarket__factory.connect(marketContract.address, seller).createMarketItem(nftContract.address, tokenId, auctionPrice, {value: listingPrice})
+
+    marketCount = await marketContract.countMarketItem()
     expect(marketCount).to.eq(1)
   }),
-  it("Should return one after adding item to market", async function() {
-    const [owner] = await ethers.getSigners()
-    const market = await createMarketContract(owner)
-    expect(market).to.ok;
-    const nft = await createNFTContract(owner, market.address)
-    expect(nft).to.ok;
+  it("Should return zero after selling first item in market", async function() {
+    const [owner, seller, buyer] = await ethers.getSigners()
+    const marketContract = await createMarketContract(owner)
+    const nftContract = await createNFTContract(owner, marketContract.address)
 
-    let marketCount = await market.countMarketItem()
-    expect(marketCount).to.eq(0)
+    let availableItemCount = await marketContract.countMarketItem()
+    let soldItemCount = await marketContract.soldItemCount()
+    expect(availableItemCount).to.eq(0)
+    expect(soldItemCount).to.eq(0)
 
-    const listingPrice = await market.getListingPrice()
+    const listingPrice = await marketContract.getListingPrice()
     const auctionPrice = ethers.utils.parseUnits('1', 'ether')
-    await nft.createToken("https://www.example.com")
-   
-    await market.createMarketItem(nft.address, 1, auctionPrice, {value: listingPrice})
 
-    marketCount = await market.countMarketItem()
-    expect(marketCount).to.eq(1)
-  }) 
+    const tokenId = await createNFTToken(seller, nftContract.address, "https://www.example.com")
+    expect(tokenId.toNumber()).to.greaterThanOrEqual(0)
+
+    await NFTMarket__factory.connect(marketContract.address, seller).createMarketItem(nftContract.address, tokenId, auctionPrice, {value: listingPrice})
+
+    availableItemCount = await marketContract.countMarketItem()
+    expect(availableItemCount).to.eq(1)
+    expect(soldItemCount).to.eq(0)
+
+    await NFTMarket__factory.connect(marketContract.address, buyer).buyMarketItem(nftContract.address, tokenId, {value: auctionPrice} )
+
+    availableItemCount = await marketContract.countMarketItem()
+    soldItemCount = await marketContract.soldItemCount()
+    expect(availableItemCount).to.eq(0)
+    expect(soldItemCount).to.eq(1)
+
+  })
 });

@@ -1,21 +1,17 @@
 import {ethers} from 'hardhat'
 import {NFT__factory, NFTMarket__factory} from '../src/types/factories/contracts'
 import { expect } from 'chai';
+import {createMarketContract, createNFTContract} from './utils'
+
+
 
 describe("NFT", async function(){
   it("Should create token successfully", async function() {
-    const [owner] = await ethers.getSigners()
-    const marketFactory = new NFTMarket__factory(owner)
-    const market = await marketFactory.deploy()
-    await market.deployed()
-    console.log("market deployed at:", market.address)
-
-    const nftFactory = new NFT__factory(owner)
-    const nft = await nftFactory.deploy(market.address)
-    await nft.deployed()
-    console.log('nft deployed at: ', nft.address)
-   
-    let transaction = await nft.createToken("https://www.example.com")
+    const [owner, seller] = await ethers.getSigners()
+    const marketContract = await createMarketContract(owner)
+    const nftContract = await createNFTContract(owner, marketContract.address)
+  
+    let transaction = await NFT__factory.connect(nftContract.address, seller).createToken("https://www.example.com")
     let tx = await transaction.wait()
     expect(tx).to.ok;
     expect(tx.events).ok;
@@ -28,20 +24,15 @@ describe("NFT", async function(){
     expect(result).to.eq(1)
   }),
   it("Should increase tokenID successfully", async function() {
-    const [owner] = await ethers.getSigners()
-    const marketFactory = new NFTMarket__factory(owner)
-    const market = await marketFactory.deploy()
-    await market.deployed()
-    console.log("market deployed at:", market.address)
-    const currentMarketCount = await market.countMarketItem()
+    const [owner, seller] = await ethers.getSigners()
+
+    const marketContract = await createMarketContract(owner)
+    const nftContract = await createNFTContract(owner, marketContract.address)
+
+    const currentMarketCount = await NFTMarket__factory.connect(marketContract.address, seller).countMarketItem()
     expect(currentMarketCount).to.eq(0)
 
-    const nftFactory = new NFT__factory(owner)
-    const nft = await nftFactory.deploy(market.address)
-    await nft.deployed()
-    console.log('nft deployed at: ', nft.address)
-   
-    let transaction = await nft.createToken("https://www.example.com")
+    let transaction = await NFT__factory.connect(nftContract.address, seller).createToken("https://www.example.com")
     let tx = await transaction.wait()
     expect(tx).to.ok;
     expect(tx.events).ok;
@@ -53,7 +44,7 @@ describe("NFT", async function(){
     let result = event?.args?.at(2)
     expect(result).to.eq(1)
 
-    transaction = await nft.createToken("https://www.example2.com")
+    transaction = await NFT__factory.connect(nftContract.address, seller).createToken("https://www.example2.com")
     tx = await transaction.wait()
     expect(tx).to.ok;
     expect(tx.events).ok;
