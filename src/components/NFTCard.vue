@@ -1,38 +1,54 @@
 <template>
     <div class="border shadow rounded-xl overflow-hidden">
-        <img v-if="nft.link" :src="nft.link" class="h-52"/>
+        <img v-if="item.link" :src="item.link" class="h-52"/>
         <div class="p-4">
-            <p class="h-16 text-2xl font-semibold">{{nft.name}}</p>
-            <div class="overflow-hidden h-20">
-                <p class="text-gray-400">{{nft.desc}}</p>
-            </div>
+            <p class="text-2xl font-semibold">{{item.name}}</p>
+            <p class="text-gray-400">{{item.desc}}</p>
+            <p class="text-gray-400">{{seller}}</p>
+            <!-- <div class="overflow-hidden h-20"></div> -->
         </div>
         <div class="p-4 bg-black">
-            <p class="text-2xl mb-4 font-bold text-white">{{nft.price}} ETH</p>
-            <button class="w-full bg-indigo-500 text-white font-bold py-2 px-12 rounded" @click="buy(nft)">Buy</button>
+            <p class="text-2xl mb-4 font-bold text-white">{{item.price}} ETH</p>
+            <button v-if="buyable" class="w-full bg-indigo-500 text-white font-bold py-2 px-12 rounded" @click="buy()">{{owned ? "Resell" : "Buy"}}</button>
         </div>
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import {MarketItem, buyNFT} from '@/market'
 
 export default defineComponent({
     name: "NFTCard",
     props: {
-        item: Object 
+        buyable: {
+            type: Boolean as PropType<boolean>,
+            default: true,
+        },
+        owned: {
+            type: Boolean as PropType<boolean>,
+            default: false,
+        },
+        item: {
+            type: Object as PropType<MarketItem>,
+            required: true
+        },
     },
     setup(props) {
-       const nft = ref<MarketItem>()
-       nft.value = props.item as MarketItem
 
-       const buy = async(e: MarketItem) => {
-           await buyNFT(e)
-           console.log('about to buy nft: ', e.itemId)
+       const buy = async() => {
+           if (props.owned) {
+               console.log('reselling')
+           } else {
+                await buyNFT(props.item)
+           }
        }
 
+       const seller = computed(() => {
+           return props.item.seller.substring(0, 10)
+       })
+
        return {
-           nft,
+           seller,
            buy
        }
     },

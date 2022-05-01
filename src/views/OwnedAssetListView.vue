@@ -2,7 +2,7 @@
   <div class="flex justify-center">
     <div v-if="items.length" class="px-4 max-w-7xl">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-        <NFTCard v-for="(nft, idx) in items" :key="idx" :item="nft"/>
+        <NFTCard v-for="(nft, idx) in items" :key="idx" :item="nft" :buyable="true" :owned="true"/>
       </div>
     </div>
 
