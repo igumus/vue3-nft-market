@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref} from 'vue';
-import { createdAssets, MarketItem, myItems } from '@/market'
+import { createdAssets, MarketItem } from '@/market'
 import NFTCard from '@/components/NFTCard.vue'
 
 export default defineComponent({
